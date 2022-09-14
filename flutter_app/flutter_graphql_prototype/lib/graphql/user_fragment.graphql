@@ -1,0 +1,13 @@
+fragment UserInfo on User {
+    id,
+    username,
+    displayName,
+}
+
+fragment UserProjects on User {
+    ...UserInfo,
+    projects {
+        id,
+        title,
+    }
+}

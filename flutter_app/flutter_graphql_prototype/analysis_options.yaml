@@ -9,6 +9,8 @@ analyzer:
     - packages/sample_module/**
     - lib/**.gr.dart
     - packages/**.gr.dart
+    - lib/**.gql.dart
+    - lib/**.gql.g.dart
   errors:
     omit_local_variable_types: error
     missing_required_param: error

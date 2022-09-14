@@ -1,0 +1,1703 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type CreateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  relationshipsCreated: Int!
+}
+
+type CreatePagesMutationResponse {
+  info: CreateInfo!
+  pages: [Page!]!
+}
+
+type CreateProjectsMutationResponse {
+  info: CreateInfo!
+  projects: [Project!]!
+}
+
+type CreateUsersMutationResponse {
+  info: CreateInfo!
+  users: [User!]!
+}
+
+"""A date and time, represented as an ISO-8601 string"""
+scalar DateTime
+
+type DateTimeAggregateSelectionNonNullable {
+  min: DateTime!
+  max: DateTime!
+}
+
+type DeleteInfo {
+  bookmark: String
+  nodesDeleted: Int!
+  relationshipsDeleted: Int!
+}
+
+type IDAggregateSelectionNonNullable {
+  shortest: ID!
+  longest: ID!
+}
+
+type IntAggregateSelectionNonNullable {
+  max: Int!
+  min: Int!
+  average: Float!
+  sum: Int!
+}
+
+type Mutation {
+  createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
+  deleteUsers(where: UserWhere, delete: UserDeleteInput): DeleteInfo!
+  updateUsers(where: UserWhere, update: UserUpdateInput, connect: UserConnectInput, disconnect: UserDisconnectInput, create: UserRelationInput, delete: UserDeleteInput, connectOrCreate: UserConnectOrCreateInput): UpdateUsersMutationResponse!
+  createProjects(input: [ProjectCreateInput!]!): CreateProjectsMutationResponse!
+  deleteProjects(where: ProjectWhere, delete: ProjectDeleteInput): DeleteInfo!
+  updateProjects(where: ProjectWhere, update: ProjectUpdateInput, connect: ProjectConnectInput, disconnect: ProjectDisconnectInput, create: ProjectRelationInput, delete: ProjectDeleteInput, connectOrCreate: ProjectConnectOrCreateInput): UpdateProjectsMutationResponse!
+  createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
+  deletePages(where: PageWhere, delete: PageDeleteInput): DeleteInfo!
+  updatePages(where: PageWhere, update: PageUpdateInput, connect: PageConnectInput, disconnect: PageDisconnectInput, create: PageRelationInput, delete: PageDeleteInput, connectOrCreate: PageConnectOrCreateInput): UpdatePagesMutationResponse!
+}
+
+type Page {
+  id: ID!
+  title: String!
+  description: String
+  layout: String!
+  orderNumber: Int!
+  subPages(where: PageWhere, options: PageOptions, directed: Boolean = true): [Page!]!
+  subPagesAggregate(where: PageWhere, directed: Boolean = true): PagePageSubPagesAggregationSelection
+  parentPage(where: PageWhere, options: PageOptions, directed: Boolean = true): Page
+  parentPageAggregate(where: PageWhere, directed: Boolean = true): PagePageParentPageAggregationSelection
+  belongsTo(where: ProjectWhere, options: ProjectOptions, directed: Boolean = true): Project!
+  belongsToAggregate(where: ProjectWhere, directed: Boolean = true): PageProjectBelongsToAggregationSelection
+  subPagesConnection(where: PageSubPagesConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [PageSubPagesConnectionSort!]): PageSubPagesConnection!
+  parentPageConnection(where: PageParentPageConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [PageParentPageConnectionSort!]): PageParentPageConnection!
+  belongsToConnection(where: PageBelongsToConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [PageBelongsToConnectionSort!]): PageBelongsToConnection!
+}
+
+type PageAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  layout: StringAggregateSelectionNonNullable!
+  orderNumber: IntAggregateSelectionNonNullable!
+}
+
+input PageBelongsToAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [PageBelongsToAggregateInput!]
+  OR: [PageBelongsToAggregateInput!]
+  node: PageBelongsToNodeAggregationWhereInput
+}
+
+input PageBelongsToConnectFieldInput {
+  where: ProjectConnectWhere
+  connect: ProjectConnectInput
+}
+
+type PageBelongsToConnection {
+  edges: [PageBelongsToRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input PageBelongsToConnectionSort {
+  node: ProjectSort
+}
+
+input PageBelongsToConnectionWhere {
+  AND: [PageBelongsToConnectionWhere!]
+  OR: [PageBelongsToConnectionWhere!]
+  node: ProjectWhere
+  node_NOT: ProjectWhere
+}
+
+input PageBelongsToConnectOrCreateFieldInput {
+  where: ProjectConnectOrCreateWhere!
+  onCreate: PageBelongsToConnectOrCreateFieldInputOnCreate!
+}
+
+input PageBelongsToConnectOrCreateFieldInputOnCreate {
+  node: ProjectOnCreateInput!
+}
+
+input PageBelongsToCreateFieldInput {
+  node: ProjectCreateInput!
+}
+
+input PageBelongsToDeleteFieldInput {
+  where: PageBelongsToConnectionWhere
+  delete: ProjectDeleteInput
+}
+
+input PageBelongsToDisconnectFieldInput {
+  where: PageBelongsToConnectionWhere
+  disconnect: ProjectDisconnectInput
+}
+
+input PageBelongsToFieldInput {
+  create: PageBelongsToCreateFieldInput
+  connect: PageBelongsToConnectFieldInput
+  connectOrCreate: PageBelongsToConnectOrCreateFieldInput
+}
+
+input PageBelongsToNodeAggregationWhereInput {
+  AND: [PageBelongsToNodeAggregationWhereInput!]
+  OR: [PageBelongsToNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  title_EQUAL: String
+  title_AVERAGE_EQUAL: Float
+  title_LONGEST_EQUAL: Int
+  title_SHORTEST_EQUAL: Int
+  title_GT: Int
+  title_AVERAGE_GT: Float
+  title_LONGEST_GT: Int
+  title_SHORTEST_GT: Int
+  title_GTE: Int
+  title_AVERAGE_GTE: Float
+  title_LONGEST_GTE: Int
+  title_SHORTEST_GTE: Int
+  title_LT: Int
+  title_AVERAGE_LT: Float
+  title_LONGEST_LT: Int
+  title_SHORTEST_LT: Int
+  title_LTE: Int
+  title_AVERAGE_LTE: Float
+  title_LONGEST_LTE: Int
+  title_SHORTEST_LTE: Int
+  description_EQUAL: String
+  description_AVERAGE_EQUAL: Float
+  description_LONGEST_EQUAL: Int
+  description_SHORTEST_EQUAL: Int
+  description_GT: Int
+  description_AVERAGE_GT: Float
+  description_LONGEST_GT: Int
+  description_SHORTEST_GT: Int
+  description_GTE: Int
+  description_AVERAGE_GTE: Float
+  description_LONGEST_GTE: Int
+  description_SHORTEST_GTE: Int
+  description_LT: Int
+  description_AVERAGE_LT: Float
+  description_LONGEST_LT: Int
+  description_SHORTEST_LT: Int
+  description_LTE: Int
+  description_AVERAGE_LTE: Float
+  description_LONGEST_LTE: Int
+  description_SHORTEST_LTE: Int
+  creationDate_EQUAL: DateTime
+  creationDate_MIN_EQUAL: DateTime
+  creationDate_MAX_EQUAL: DateTime
+  creationDate_GT: DateTime
+  creationDate_MIN_GT: DateTime
+  creationDate_MAX_GT: DateTime
+  creationDate_GTE: DateTime
+  creationDate_MIN_GTE: DateTime
+  creationDate_MAX_GTE: DateTime
+  creationDate_LT: DateTime
+  creationDate_MIN_LT: DateTime
+  creationDate_MAX_LT: DateTime
+  creationDate_LTE: DateTime
+  creationDate_MIN_LTE: DateTime
+  creationDate_MAX_LTE: DateTime
+  modifiedDate_EQUAL: DateTime
+  modifiedDate_MIN_EQUAL: DateTime
+  modifiedDate_MAX_EQUAL: DateTime
+  modifiedDate_GT: DateTime
+  modifiedDate_MIN_GT: DateTime
+  modifiedDate_MAX_GT: DateTime
+  modifiedDate_GTE: DateTime
+  modifiedDate_MIN_GTE: DateTime
+  modifiedDate_MAX_GTE: DateTime
+  modifiedDate_LT: DateTime
+  modifiedDate_MIN_LT: DateTime
+  modifiedDate_MAX_LT: DateTime
+  modifiedDate_LTE: DateTime
+  modifiedDate_MIN_LTE: DateTime
+  modifiedDate_MAX_LTE: DateTime
+}
+
+type PageBelongsToRelationship {
+  cursor: String!
+  node: Project!
+}
+
+input PageBelongsToUpdateConnectionInput {
+  node: ProjectUpdateInput
+}
+
+input PageBelongsToUpdateFieldInput {
+  where: PageBelongsToConnectionWhere
+  update: PageBelongsToUpdateConnectionInput
+  connect: PageBelongsToConnectFieldInput
+  disconnect: PageBelongsToDisconnectFieldInput
+  create: PageBelongsToCreateFieldInput
+  delete: PageBelongsToDeleteFieldInput
+  connectOrCreate: PageBelongsToConnectOrCreateFieldInput
+}
+
+input PageConnectInput {
+  subPages: [PageSubPagesConnectFieldInput!]
+  parentPage: PageParentPageConnectFieldInput
+  belongsTo: PageBelongsToConnectFieldInput
+}
+
+input PageConnectOrCreateInput {
+  subPages: [PageSubPagesConnectOrCreateFieldInput!]
+  parentPage: PageParentPageConnectOrCreateFieldInput
+  belongsTo: PageBelongsToConnectOrCreateFieldInput
+}
+
+input PageConnectOrCreateWhere {
+  node: PageUniqueWhere!
+}
+
+input PageConnectWhere {
+  node: PageWhere!
+}
+
+input PageCreateInput {
+  title: String!
+  description: String
+  layout: String!
+  orderNumber: Int!
+  subPages: PageSubPagesFieldInput
+  parentPage: PageParentPageFieldInput
+  belongsTo: PageBelongsToFieldInput
+}
+
+input PageDeleteInput {
+  subPages: [PageSubPagesDeleteFieldInput!]
+  parentPage: PageParentPageDeleteFieldInput
+  belongsTo: PageBelongsToDeleteFieldInput
+}
+
+input PageDisconnectInput {
+  subPages: [PageSubPagesDisconnectFieldInput!]
+  parentPage: PageParentPageDisconnectFieldInput
+  belongsTo: PageBelongsToDisconnectFieldInput
+}
+
+type PageEdge {
+  cursor: String!
+  node: Page!
+}
+
+"""Pagination information (Relay)"""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+input PageOnCreateInput {
+  title: String!
+  description: String
+  layout: String!
+  orderNumber: Int!
+}
+
+input PageOptions {
+  """
+  Specify one or more PageSort objects to sort Pages by. The sorts will be
+  applied in the order in which they are arranged in the array.
+  """
+  sort: [PageSort!]
+  limit: Int
+  offset: Int
+}
+
+type PagePageParentPageAggregationSelection {
+  count: Int!
+  node: PagePageParentPageNodeAggregateSelection
+}
+
+type PagePageParentPageNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  layout: StringAggregateSelectionNonNullable!
+  orderNumber: IntAggregateSelectionNonNullable!
+}
+
+type PagePageSubPagesAggregationSelection {
+  count: Int!
+  node: PagePageSubPagesNodeAggregateSelection
+}
+
+type PagePageSubPagesNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  layout: StringAggregateSelectionNonNullable!
+  orderNumber: IntAggregateSelectionNonNullable!
+}
+
+input PageParentPageAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [PageParentPageAggregateInput!]
+  OR: [PageParentPageAggregateInput!]
+  node: PageParentPageNodeAggregationWhereInput
+}
+
+input PageParentPageConnectFieldInput {
+  where: PageConnectWhere
+  connect: PageConnectInput
+}
+
+type PageParentPageConnection {
+  edges: [PageParentPageRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input PageParentPageConnectionSort {
+  node: PageSort
+}
+
+input PageParentPageConnectionWhere {
+  AND: [PageParentPageConnectionWhere!]
+  OR: [PageParentPageConnectionWhere!]
+  node: PageWhere
+  node_NOT: PageWhere
+}
+
+input PageParentPageConnectOrCreateFieldInput {
+  where: PageConnectOrCreateWhere!
+  onCreate: PageParentPageConnectOrCreateFieldInputOnCreate!
+}
+
+input PageParentPageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+input PageParentPageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input PageParentPageDeleteFieldInput {
+  where: PageParentPageConnectionWhere
+  delete: PageDeleteInput
+}
+
+input PageParentPageDisconnectFieldInput {
+  where: PageParentPageConnectionWhere
+  disconnect: PageDisconnectInput
+}
+
+input PageParentPageFieldInput {
+  create: PageParentPageCreateFieldInput
+  connect: PageParentPageConnectFieldInput
+  connectOrCreate: PageParentPageConnectOrCreateFieldInput
+}
+
+input PageParentPageNodeAggregationWhereInput {
+  AND: [PageParentPageNodeAggregationWhereInput!]
+  OR: [PageParentPageNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  title_EQUAL: String
+  title_AVERAGE_EQUAL: Float
+  title_LONGEST_EQUAL: Int
+  title_SHORTEST_EQUAL: Int
+  title_GT: Int
+  title_AVERAGE_GT: Float
+  title_LONGEST_GT: Int
+  title_SHORTEST_GT: Int
+  title_GTE: Int
+  title_AVERAGE_GTE: Float
+  title_LONGEST_GTE: Int
+  title_SHORTEST_GTE: Int
+  title_LT: Int
+  title_AVERAGE_LT: Float
+  title_LONGEST_LT: Int
+  title_SHORTEST_LT: Int
+  title_LTE: Int
+  title_AVERAGE_LTE: Float
+  title_LONGEST_LTE: Int
+  title_SHORTEST_LTE: Int
+  description_EQUAL: String
+  description_AVERAGE_EQUAL: Float
+  description_LONGEST_EQUAL: Int
+  description_SHORTEST_EQUAL: Int
+  description_GT: Int
+  description_AVERAGE_GT: Float
+  description_LONGEST_GT: Int
+  description_SHORTEST_GT: Int
+  description_GTE: Int
+  description_AVERAGE_GTE: Float
+  description_LONGEST_GTE: Int
+  description_SHORTEST_GTE: Int
+  description_LT: Int
+  description_AVERAGE_LT: Float
+  description_LONGEST_LT: Int
+  description_SHORTEST_LT: Int
+  description_LTE: Int
+  description_AVERAGE_LTE: Float
+  description_LONGEST_LTE: Int
+  description_SHORTEST_LTE: Int
+  layout_EQUAL: String
+  layout_AVERAGE_EQUAL: Float
+  layout_LONGEST_EQUAL: Int
+  layout_SHORTEST_EQUAL: Int
+  layout_GT: Int
+  layout_AVERAGE_GT: Float
+  layout_LONGEST_GT: Int
+  layout_SHORTEST_GT: Int
+  layout_GTE: Int
+  layout_AVERAGE_GTE: Float
+  layout_LONGEST_GTE: Int
+  layout_SHORTEST_GTE: Int
+  layout_LT: Int
+  layout_AVERAGE_LT: Float
+  layout_LONGEST_LT: Int
+  layout_SHORTEST_LT: Int
+  layout_LTE: Int
+  layout_AVERAGE_LTE: Float
+  layout_LONGEST_LTE: Int
+  layout_SHORTEST_LTE: Int
+  orderNumber_EQUAL: Int
+  orderNumber_AVERAGE_EQUAL: Float
+  orderNumber_MIN_EQUAL: Int
+  orderNumber_MAX_EQUAL: Int
+  orderNumber_SUM_EQUAL: Int
+  orderNumber_GT: Int
+  orderNumber_AVERAGE_GT: Float
+  orderNumber_MIN_GT: Int
+  orderNumber_MAX_GT: Int
+  orderNumber_SUM_GT: Int
+  orderNumber_GTE: Int
+  orderNumber_AVERAGE_GTE: Float
+  orderNumber_MIN_GTE: Int
+  orderNumber_MAX_GTE: Int
+  orderNumber_SUM_GTE: Int
+  orderNumber_LT: Int
+  orderNumber_AVERAGE_LT: Float
+  orderNumber_MIN_LT: Int
+  orderNumber_MAX_LT: Int
+  orderNumber_SUM_LT: Int
+  orderNumber_LTE: Int
+  orderNumber_AVERAGE_LTE: Float
+  orderNumber_MIN_LTE: Int
+  orderNumber_MAX_LTE: Int
+  orderNumber_SUM_LTE: Int
+}
+
+type PageParentPageRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input PageParentPageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input PageParentPageUpdateFieldInput {
+  where: PageParentPageConnectionWhere
+  update: PageParentPageUpdateConnectionInput
+  connect: PageParentPageConnectFieldInput
+  disconnect: PageParentPageDisconnectFieldInput
+  create: PageParentPageCreateFieldInput
+  delete: PageParentPageDeleteFieldInput
+  connectOrCreate: PageParentPageConnectOrCreateFieldInput
+}
+
+type PageProjectBelongsToAggregationSelection {
+  count: Int!
+  node: PageProjectBelongsToNodeAggregateSelection
+}
+
+type PageProjectBelongsToNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  creationDate: DateTimeAggregateSelectionNonNullable!
+  modifiedDate: DateTimeAggregateSelectionNonNullable!
+}
+
+input PageRelationInput {
+  subPages: [PageSubPagesCreateFieldInput!]
+  parentPage: PageParentPageCreateFieldInput
+  belongsTo: PageBelongsToCreateFieldInput
+}
+
+type PagesConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [PageEdge!]!
+}
+
+"""
+Fields to sort Pages by. The order in which sorts are applied is not guaranteed
+when specifying many fields in one PageSort object.
+"""
+input PageSort {
+  id: SortDirection
+  title: SortDirection
+  description: SortDirection
+  layout: SortDirection
+  orderNumber: SortDirection
+}
+
+input PageSubPagesAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [PageSubPagesAggregateInput!]
+  OR: [PageSubPagesAggregateInput!]
+  node: PageSubPagesNodeAggregationWhereInput
+}
+
+input PageSubPagesConnectFieldInput {
+  where: PageConnectWhere
+  connect: [PageConnectInput!]
+}
+
+type PageSubPagesConnection {
+  edges: [PageSubPagesRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input PageSubPagesConnectionSort {
+  node: PageSort
+}
+
+input PageSubPagesConnectionWhere {
+  AND: [PageSubPagesConnectionWhere!]
+  OR: [PageSubPagesConnectionWhere!]
+  node: PageWhere
+  node_NOT: PageWhere
+}
+
+input PageSubPagesConnectOrCreateFieldInput {
+  where: PageConnectOrCreateWhere!
+  onCreate: PageSubPagesConnectOrCreateFieldInputOnCreate!
+}
+
+input PageSubPagesConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+input PageSubPagesCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input PageSubPagesDeleteFieldInput {
+  where: PageSubPagesConnectionWhere
+  delete: PageDeleteInput
+}
+
+input PageSubPagesDisconnectFieldInput {
+  where: PageSubPagesConnectionWhere
+  disconnect: PageDisconnectInput
+}
+
+input PageSubPagesFieldInput {
+  create: [PageSubPagesCreateFieldInput!]
+  connect: [PageSubPagesConnectFieldInput!]
+  connectOrCreate: [PageSubPagesConnectOrCreateFieldInput!]
+}
+
+input PageSubPagesNodeAggregationWhereInput {
+  AND: [PageSubPagesNodeAggregationWhereInput!]
+  OR: [PageSubPagesNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  title_EQUAL: String
+  title_AVERAGE_EQUAL: Float
+  title_LONGEST_EQUAL: Int
+  title_SHORTEST_EQUAL: Int
+  title_GT: Int
+  title_AVERAGE_GT: Float
+  title_LONGEST_GT: Int
+  title_SHORTEST_GT: Int
+  title_GTE: Int
+  title_AVERAGE_GTE: Float
+  title_LONGEST_GTE: Int
+  title_SHORTEST_GTE: Int
+  title_LT: Int
+  title_AVERAGE_LT: Float
+  title_LONGEST_LT: Int
+  title_SHORTEST_LT: Int
+  title_LTE: Int
+  title_AVERAGE_LTE: Float
+  title_LONGEST_LTE: Int
+  title_SHORTEST_LTE: Int
+  description_EQUAL: String
+  description_AVERAGE_EQUAL: Float
+  description_LONGEST_EQUAL: Int
+  description_SHORTEST_EQUAL: Int
+  description_GT: Int
+  description_AVERAGE_GT: Float
+  description_LONGEST_GT: Int
+  description_SHORTEST_GT: Int
+  description_GTE: Int
+  description_AVERAGE_GTE: Float
+  description_LONGEST_GTE: Int
+  description_SHORTEST_GTE: Int
+  description_LT: Int
+  description_AVERAGE_LT: Float
+  description_LONGEST_LT: Int
+  description_SHORTEST_LT: Int
+  description_LTE: Int
+  description_AVERAGE_LTE: Float
+  description_LONGEST_LTE: Int
+  description_SHORTEST_LTE: Int
+  layout_EQUAL: String
+  layout_AVERAGE_EQUAL: Float
+  layout_LONGEST_EQUAL: Int
+  layout_SHORTEST_EQUAL: Int
+  layout_GT: Int
+  layout_AVERAGE_GT: Float
+  layout_LONGEST_GT: Int
+  layout_SHORTEST_GT: Int
+  layout_GTE: Int
+  layout_AVERAGE_GTE: Float
+  layout_LONGEST_GTE: Int
+  layout_SHORTEST_GTE: Int
+  layout_LT: Int
+  layout_AVERAGE_LT: Float
+  layout_LONGEST_LT: Int
+  layout_SHORTEST_LT: Int
+  layout_LTE: Int
+  layout_AVERAGE_LTE: Float
+  layout_LONGEST_LTE: Int
+  layout_SHORTEST_LTE: Int
+  orderNumber_EQUAL: Int
+  orderNumber_AVERAGE_EQUAL: Float
+  orderNumber_MIN_EQUAL: Int
+  orderNumber_MAX_EQUAL: Int
+  orderNumber_SUM_EQUAL: Int
+  orderNumber_GT: Int
+  orderNumber_AVERAGE_GT: Float
+  orderNumber_MIN_GT: Int
+  orderNumber_MAX_GT: Int
+  orderNumber_SUM_GT: Int
+  orderNumber_GTE: Int
+  orderNumber_AVERAGE_GTE: Float
+  orderNumber_MIN_GTE: Int
+  orderNumber_MAX_GTE: Int
+  orderNumber_SUM_GTE: Int
+  orderNumber_LT: Int
+  orderNumber_AVERAGE_LT: Float
+  orderNumber_MIN_LT: Int
+  orderNumber_MAX_LT: Int
+  orderNumber_SUM_LT: Int
+  orderNumber_LTE: Int
+  orderNumber_AVERAGE_LTE: Float
+  orderNumber_MIN_LTE: Int
+  orderNumber_MAX_LTE: Int
+  orderNumber_SUM_LTE: Int
+}
+
+type PageSubPagesRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input PageSubPagesUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input PageSubPagesUpdateFieldInput {
+  where: PageSubPagesConnectionWhere
+  update: PageSubPagesUpdateConnectionInput
+  connect: [PageSubPagesConnectFieldInput!]
+  disconnect: [PageSubPagesDisconnectFieldInput!]
+  create: [PageSubPagesCreateFieldInput!]
+  delete: [PageSubPagesDeleteFieldInput!]
+  connectOrCreate: [PageSubPagesConnectOrCreateFieldInput!]
+}
+
+input PageUniqueWhere {
+  id: ID
+}
+
+input PageUpdateInput {
+  title: String
+  description: String
+  layout: String
+  orderNumber: Int
+  orderNumber_INCREMENT: Int
+  orderNumber_DECREMENT: Int
+  subPages: [PageSubPagesUpdateFieldInput!]
+  parentPage: PageParentPageUpdateFieldInput
+  belongsTo: PageBelongsToUpdateFieldInput
+}
+
+input PageWhere {
+  OR: [PageWhere!]
+  AND: [PageWhere!]
+  id: ID
+  id_NOT: ID
+  id_IN: [ID!]
+  id_NOT_IN: [ID!]
+  id_CONTAINS: ID
+  id_NOT_CONTAINS: ID
+  id_STARTS_WITH: ID
+  id_NOT_STARTS_WITH: ID
+  id_ENDS_WITH: ID
+  id_NOT_ENDS_WITH: ID
+  title: String
+  title_NOT: String
+  title_IN: [String!]
+  title_NOT_IN: [String!]
+  title_CONTAINS: String
+  title_NOT_CONTAINS: String
+  title_STARTS_WITH: String
+  title_NOT_STARTS_WITH: String
+  title_ENDS_WITH: String
+  title_NOT_ENDS_WITH: String
+  description: String
+  description_NOT: String
+  description_IN: [String]
+  description_NOT_IN: [String]
+  description_CONTAINS: String
+  description_NOT_CONTAINS: String
+  description_STARTS_WITH: String
+  description_NOT_STARTS_WITH: String
+  description_ENDS_WITH: String
+  description_NOT_ENDS_WITH: String
+  layout: String
+  layout_NOT: String
+  layout_IN: [String!]
+  layout_NOT_IN: [String!]
+  layout_CONTAINS: String
+  layout_NOT_CONTAINS: String
+  layout_STARTS_WITH: String
+  layout_NOT_STARTS_WITH: String
+  layout_ENDS_WITH: String
+  layout_NOT_ENDS_WITH: String
+  orderNumber: Int
+  orderNumber_NOT: Int
+  orderNumber_IN: [Int!]
+  orderNumber_NOT_IN: [Int!]
+  orderNumber_LT: Int
+  orderNumber_LTE: Int
+  orderNumber_GT: Int
+  orderNumber_GTE: Int
+  subPagesAggregate: PageSubPagesAggregateInput
+
+  """Return Pages where all of the related Pages match this filter"""
+  subPages_ALL: PageWhere
+
+  """Return Pages where none of the related Pages match this filter"""
+  subPages_NONE: PageWhere
+
+  """Return Pages where one of the related Pages match this filter"""
+  subPages_SINGLE: PageWhere
+
+  """Return Pages where some of the related Pages match this filter"""
+  subPages_SOME: PageWhere
+  parentPage: PageWhere
+  parentPage_NOT: PageWhere
+  parentPageAggregate: PageParentPageAggregateInput
+  belongsTo: ProjectWhere
+  belongsTo_NOT: ProjectWhere
+  belongsToAggregate: PageBelongsToAggregateInput
+  subPagesConnection_ALL: PageSubPagesConnectionWhere
+  subPagesConnection_NONE: PageSubPagesConnectionWhere
+  subPagesConnection_SINGLE: PageSubPagesConnectionWhere
+  subPagesConnection_SOME: PageSubPagesConnectionWhere
+  parentPageConnection: PageParentPageConnectionWhere
+  parentPageConnection_NOT: PageParentPageConnectionWhere
+  belongsToConnection: PageBelongsToConnectionWhere
+  belongsToConnection_NOT: PageBelongsToConnectionWhere
+}
+
+type Project {
+  id: ID!
+  title: String!
+  description: String
+  creationDate: DateTime!
+  modifiedDate: DateTime!
+  pages(where: PageWhere, options: PageOptions, directed: Boolean = true): [Page!]!
+  pagesAggregate(where: PageWhere, directed: Boolean = true): ProjectPagePagesAggregationSelection
+  owner(where: UserWhere, options: UserOptions, directed: Boolean = true): User!
+  ownerAggregate(where: UserWhere, directed: Boolean = true): ProjectUserOwnerAggregationSelection
+  pagesConnection(where: ProjectPagesConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [ProjectPagesConnectionSort!]): ProjectPagesConnection!
+  ownerConnection(where: ProjectOwnerConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [ProjectOwnerConnectionSort!]): ProjectOwnerConnection!
+}
+
+type ProjectAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  creationDate: DateTimeAggregateSelectionNonNullable!
+  modifiedDate: DateTimeAggregateSelectionNonNullable!
+}
+
+input ProjectConnectInput {
+  pages: [ProjectPagesConnectFieldInput!]
+  owner: ProjectOwnerConnectFieldInput
+}
+
+input ProjectConnectOrCreateInput {
+  pages: [ProjectPagesConnectOrCreateFieldInput!]
+  owner: ProjectOwnerConnectOrCreateFieldInput
+}
+
+input ProjectConnectOrCreateWhere {
+  node: ProjectUniqueWhere!
+}
+
+input ProjectConnectWhere {
+  node: ProjectWhere!
+}
+
+input ProjectCreateInput {
+  title: String!
+  description: String
+  pages: ProjectPagesFieldInput
+  owner: ProjectOwnerFieldInput
+}
+
+input ProjectDeleteInput {
+  pages: [ProjectPagesDeleteFieldInput!]
+  owner: ProjectOwnerDeleteFieldInput
+}
+
+input ProjectDisconnectInput {
+  pages: [ProjectPagesDisconnectFieldInput!]
+  owner: ProjectOwnerDisconnectFieldInput
+}
+
+type ProjectEdge {
+  cursor: String!
+  node: Project!
+}
+
+input ProjectOnCreateInput {
+  title: String!
+  description: String
+}
+
+input ProjectOptions {
+  """
+  Specify one or more ProjectSort objects to sort Projects by. The sorts will be
+  applied in the order in which they are arranged in the array.
+  """
+  sort: [ProjectSort!]
+  limit: Int
+  offset: Int
+}
+
+input ProjectOwnerAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [ProjectOwnerAggregateInput!]
+  OR: [ProjectOwnerAggregateInput!]
+  node: ProjectOwnerNodeAggregationWhereInput
+}
+
+input ProjectOwnerConnectFieldInput {
+  where: UserConnectWhere
+  connect: UserConnectInput
+}
+
+type ProjectOwnerConnection {
+  edges: [ProjectOwnerRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input ProjectOwnerConnectionSort {
+  node: UserSort
+}
+
+input ProjectOwnerConnectionWhere {
+  AND: [ProjectOwnerConnectionWhere!]
+  OR: [ProjectOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input ProjectOwnerConnectOrCreateFieldInput {
+  where: UserConnectOrCreateWhere!
+  onCreate: ProjectOwnerConnectOrCreateFieldInputOnCreate!
+}
+
+input ProjectOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserOnCreateInput!
+}
+
+input ProjectOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input ProjectOwnerDeleteFieldInput {
+  where: ProjectOwnerConnectionWhere
+  delete: UserDeleteInput
+}
+
+input ProjectOwnerDisconnectFieldInput {
+  where: ProjectOwnerConnectionWhere
+  disconnect: UserDisconnectInput
+}
+
+input ProjectOwnerFieldInput {
+  create: ProjectOwnerCreateFieldInput
+  connect: ProjectOwnerConnectFieldInput
+  connectOrCreate: ProjectOwnerConnectOrCreateFieldInput
+}
+
+input ProjectOwnerNodeAggregationWhereInput {
+  AND: [ProjectOwnerNodeAggregationWhereInput!]
+  OR: [ProjectOwnerNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  username_EQUAL: String
+  username_AVERAGE_EQUAL: Float
+  username_LONGEST_EQUAL: Int
+  username_SHORTEST_EQUAL: Int
+  username_GT: Int
+  username_AVERAGE_GT: Float
+  username_LONGEST_GT: Int
+  username_SHORTEST_GT: Int
+  username_GTE: Int
+  username_AVERAGE_GTE: Float
+  username_LONGEST_GTE: Int
+  username_SHORTEST_GTE: Int
+  username_LT: Int
+  username_AVERAGE_LT: Float
+  username_LONGEST_LT: Int
+  username_SHORTEST_LT: Int
+  username_LTE: Int
+  username_AVERAGE_LTE: Float
+  username_LONGEST_LTE: Int
+  username_SHORTEST_LTE: Int
+  displayName_EQUAL: String
+  displayName_AVERAGE_EQUAL: Float
+  displayName_LONGEST_EQUAL: Int
+  displayName_SHORTEST_EQUAL: Int
+  displayName_GT: Int
+  displayName_AVERAGE_GT: Float
+  displayName_LONGEST_GT: Int
+  displayName_SHORTEST_GT: Int
+  displayName_GTE: Int
+  displayName_AVERAGE_GTE: Float
+  displayName_LONGEST_GTE: Int
+  displayName_SHORTEST_GTE: Int
+  displayName_LT: Int
+  displayName_AVERAGE_LT: Float
+  displayName_LONGEST_LT: Int
+  displayName_SHORTEST_LT: Int
+  displayName_LTE: Int
+  displayName_AVERAGE_LTE: Float
+  displayName_LONGEST_LTE: Int
+  displayName_SHORTEST_LTE: Int
+}
+
+type ProjectOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+input ProjectOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input ProjectOwnerUpdateFieldInput {
+  where: ProjectOwnerConnectionWhere
+  update: ProjectOwnerUpdateConnectionInput
+  connect: ProjectOwnerConnectFieldInput
+  disconnect: ProjectOwnerDisconnectFieldInput
+  create: ProjectOwnerCreateFieldInput
+  delete: ProjectOwnerDeleteFieldInput
+  connectOrCreate: ProjectOwnerConnectOrCreateFieldInput
+}
+
+type ProjectPagePagesAggregationSelection {
+  count: Int!
+  node: ProjectPagePagesNodeAggregateSelection
+}
+
+type ProjectPagePagesNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  layout: StringAggregateSelectionNonNullable!
+  orderNumber: IntAggregateSelectionNonNullable!
+}
+
+input ProjectPagesAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [ProjectPagesAggregateInput!]
+  OR: [ProjectPagesAggregateInput!]
+  node: ProjectPagesNodeAggregationWhereInput
+}
+
+input ProjectPagesConnectFieldInput {
+  where: PageConnectWhere
+  connect: [PageConnectInput!]
+}
+
+type ProjectPagesConnection {
+  edges: [ProjectPagesRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input ProjectPagesConnectionSort {
+  node: PageSort
+}
+
+input ProjectPagesConnectionWhere {
+  AND: [ProjectPagesConnectionWhere!]
+  OR: [ProjectPagesConnectionWhere!]
+  node: PageWhere
+  node_NOT: PageWhere
+}
+
+input ProjectPagesConnectOrCreateFieldInput {
+  where: PageConnectOrCreateWhere!
+  onCreate: ProjectPagesConnectOrCreateFieldInputOnCreate!
+}
+
+input ProjectPagesConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+input ProjectPagesCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input ProjectPagesDeleteFieldInput {
+  where: ProjectPagesConnectionWhere
+  delete: PageDeleteInput
+}
+
+input ProjectPagesDisconnectFieldInput {
+  where: ProjectPagesConnectionWhere
+  disconnect: PageDisconnectInput
+}
+
+input ProjectPagesFieldInput {
+  create: [ProjectPagesCreateFieldInput!]
+  connect: [ProjectPagesConnectFieldInput!]
+  connectOrCreate: [ProjectPagesConnectOrCreateFieldInput!]
+}
+
+input ProjectPagesNodeAggregationWhereInput {
+  AND: [ProjectPagesNodeAggregationWhereInput!]
+  OR: [ProjectPagesNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  title_EQUAL: String
+  title_AVERAGE_EQUAL: Float
+  title_LONGEST_EQUAL: Int
+  title_SHORTEST_EQUAL: Int
+  title_GT: Int
+  title_AVERAGE_GT: Float
+  title_LONGEST_GT: Int
+  title_SHORTEST_GT: Int
+  title_GTE: Int
+  title_AVERAGE_GTE: Float
+  title_LONGEST_GTE: Int
+  title_SHORTEST_GTE: Int
+  title_LT: Int
+  title_AVERAGE_LT: Float
+  title_LONGEST_LT: Int
+  title_SHORTEST_LT: Int
+  title_LTE: Int
+  title_AVERAGE_LTE: Float
+  title_LONGEST_LTE: Int
+  title_SHORTEST_LTE: Int
+  description_EQUAL: String
+  description_AVERAGE_EQUAL: Float
+  description_LONGEST_EQUAL: Int
+  description_SHORTEST_EQUAL: Int
+  description_GT: Int
+  description_AVERAGE_GT: Float
+  description_LONGEST_GT: Int
+  description_SHORTEST_GT: Int
+  description_GTE: Int
+  description_AVERAGE_GTE: Float
+  description_LONGEST_GTE: Int
+  description_SHORTEST_GTE: Int
+  description_LT: Int
+  description_AVERAGE_LT: Float
+  description_LONGEST_LT: Int
+  description_SHORTEST_LT: Int
+  description_LTE: Int
+  description_AVERAGE_LTE: Float
+  description_LONGEST_LTE: Int
+  description_SHORTEST_LTE: Int
+  layout_EQUAL: String
+  layout_AVERAGE_EQUAL: Float
+  layout_LONGEST_EQUAL: Int
+  layout_SHORTEST_EQUAL: Int
+  layout_GT: Int
+  layout_AVERAGE_GT: Float
+  layout_LONGEST_GT: Int
+  layout_SHORTEST_GT: Int
+  layout_GTE: Int
+  layout_AVERAGE_GTE: Float
+  layout_LONGEST_GTE: Int
+  layout_SHORTEST_GTE: Int
+  layout_LT: Int
+  layout_AVERAGE_LT: Float
+  layout_LONGEST_LT: Int
+  layout_SHORTEST_LT: Int
+  layout_LTE: Int
+  layout_AVERAGE_LTE: Float
+  layout_LONGEST_LTE: Int
+  layout_SHORTEST_LTE: Int
+  orderNumber_EQUAL: Int
+  orderNumber_AVERAGE_EQUAL: Float
+  orderNumber_MIN_EQUAL: Int
+  orderNumber_MAX_EQUAL: Int
+  orderNumber_SUM_EQUAL: Int
+  orderNumber_GT: Int
+  orderNumber_AVERAGE_GT: Float
+  orderNumber_MIN_GT: Int
+  orderNumber_MAX_GT: Int
+  orderNumber_SUM_GT: Int
+  orderNumber_GTE: Int
+  orderNumber_AVERAGE_GTE: Float
+  orderNumber_MIN_GTE: Int
+  orderNumber_MAX_GTE: Int
+  orderNumber_SUM_GTE: Int
+  orderNumber_LT: Int
+  orderNumber_AVERAGE_LT: Float
+  orderNumber_MIN_LT: Int
+  orderNumber_MAX_LT: Int
+  orderNumber_SUM_LT: Int
+  orderNumber_LTE: Int
+  orderNumber_AVERAGE_LTE: Float
+  orderNumber_MIN_LTE: Int
+  orderNumber_MAX_LTE: Int
+  orderNumber_SUM_LTE: Int
+}
+
+type ProjectPagesRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input ProjectPagesUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input ProjectPagesUpdateFieldInput {
+  where: ProjectPagesConnectionWhere
+  update: ProjectPagesUpdateConnectionInput
+  connect: [ProjectPagesConnectFieldInput!]
+  disconnect: [ProjectPagesDisconnectFieldInput!]
+  create: [ProjectPagesCreateFieldInput!]
+  delete: [ProjectPagesDeleteFieldInput!]
+  connectOrCreate: [ProjectPagesConnectOrCreateFieldInput!]
+}
+
+input ProjectRelationInput {
+  pages: [ProjectPagesCreateFieldInput!]
+  owner: ProjectOwnerCreateFieldInput
+}
+
+type ProjectsConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [ProjectEdge!]!
+}
+
+"""
+Fields to sort Projects by. The order in which sorts are applied is not
+guaranteed when specifying many fields in one ProjectSort object.
+"""
+input ProjectSort {
+  id: SortDirection
+  title: SortDirection
+  description: SortDirection
+  creationDate: SortDirection
+  modifiedDate: SortDirection
+}
+
+input ProjectUniqueWhere {
+  id: ID
+}
+
+input ProjectUpdateInput {
+  title: String
+  description: String
+  pages: [ProjectPagesUpdateFieldInput!]
+  owner: ProjectOwnerUpdateFieldInput
+}
+
+type ProjectUserOwnerAggregationSelection {
+  count: Int!
+  node: ProjectUserOwnerNodeAggregateSelection
+}
+
+type ProjectUserOwnerNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+  displayName: StringAggregateSelectionNonNullable!
+}
+
+input ProjectWhere {
+  OR: [ProjectWhere!]
+  AND: [ProjectWhere!]
+  id: ID
+  id_NOT: ID
+  id_IN: [ID!]
+  id_NOT_IN: [ID!]
+  id_CONTAINS: ID
+  id_NOT_CONTAINS: ID
+  id_STARTS_WITH: ID
+  id_NOT_STARTS_WITH: ID
+  id_ENDS_WITH: ID
+  id_NOT_ENDS_WITH: ID
+  title: String
+  title_NOT: String
+  title_IN: [String!]
+  title_NOT_IN: [String!]
+  title_CONTAINS: String
+  title_NOT_CONTAINS: String
+  title_STARTS_WITH: String
+  title_NOT_STARTS_WITH: String
+  title_ENDS_WITH: String
+  title_NOT_ENDS_WITH: String
+  description: String
+  description_NOT: String
+  description_IN: [String]
+  description_NOT_IN: [String]
+  description_CONTAINS: String
+  description_NOT_CONTAINS: String
+  description_STARTS_WITH: String
+  description_NOT_STARTS_WITH: String
+  description_ENDS_WITH: String
+  description_NOT_ENDS_WITH: String
+  creationDate: DateTime
+  creationDate_NOT: DateTime
+  creationDate_IN: [DateTime!]
+  creationDate_NOT_IN: [DateTime!]
+  creationDate_LT: DateTime
+  creationDate_LTE: DateTime
+  creationDate_GT: DateTime
+  creationDate_GTE: DateTime
+  modifiedDate: DateTime
+  modifiedDate_NOT: DateTime
+  modifiedDate_IN: [DateTime!]
+  modifiedDate_NOT_IN: [DateTime!]
+  modifiedDate_LT: DateTime
+  modifiedDate_LTE: DateTime
+  modifiedDate_GT: DateTime
+  modifiedDate_GTE: DateTime
+  pagesAggregate: ProjectPagesAggregateInput
+
+  """Return Projects where all of the related Pages match this filter"""
+  pages_ALL: PageWhere
+
+  """Return Projects where none of the related Pages match this filter"""
+  pages_NONE: PageWhere
+
+  """Return Projects where one of the related Pages match this filter"""
+  pages_SINGLE: PageWhere
+
+  """Return Projects where some of the related Pages match this filter"""
+  pages_SOME: PageWhere
+  owner: UserWhere
+  owner_NOT: UserWhere
+  ownerAggregate: ProjectOwnerAggregateInput
+  pagesConnection_ALL: ProjectPagesConnectionWhere
+  pagesConnection_NONE: ProjectPagesConnectionWhere
+  pagesConnection_SINGLE: ProjectPagesConnectionWhere
+  pagesConnection_SOME: ProjectPagesConnectionWhere
+  ownerConnection: ProjectOwnerConnectionWhere
+  ownerConnection_NOT: ProjectOwnerConnectionWhere
+}
+
+type Query {
+  users(where: UserWhere, options: UserOptions): [User!]!
+  usersAggregate(where: UserWhere): UserAggregateSelection!
+  usersConnection(first: Int, after: String, where: UserWhere, sort: [UserSort]): UsersConnection!
+  projects(where: ProjectWhere, options: ProjectOptions): [Project!]!
+  projectsAggregate(where: ProjectWhere): ProjectAggregateSelection!
+  projectsConnection(first: Int, after: String, where: ProjectWhere, sort: [ProjectSort]): ProjectsConnection!
+  pages(where: PageWhere, options: PageOptions): [Page!]!
+  pagesAggregate(where: PageWhere): PageAggregateSelection!
+  pagesConnection(first: Int, after: String, where: PageWhere, sort: [PageSort]): PagesConnection!
+}
+
+enum SortDirection {
+  """Sort by field values in ascending order."""
+  ASC
+
+  """Sort by field values in descending order."""
+  DESC
+}
+
+type StringAggregateSelectionNonNullable {
+  shortest: String!
+  longest: String!
+}
+
+type StringAggregateSelectionNullable {
+  shortest: String
+  longest: String
+}
+
+type UpdateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  nodesDeleted: Int!
+  relationshipsCreated: Int!
+  relationshipsDeleted: Int!
+}
+
+type UpdatePagesMutationResponse {
+  info: UpdateInfo!
+  pages: [Page!]!
+}
+
+type UpdateProjectsMutationResponse {
+  info: UpdateInfo!
+  projects: [Project!]!
+}
+
+type UpdateUsersMutationResponse {
+  info: UpdateInfo!
+  users: [User!]!
+}
+
+type User {
+  id: ID!
+  username: String!
+  displayName: String!
+  projects(where: ProjectWhere, options: ProjectOptions, directed: Boolean = true): [Project!]!
+  projectsAggregate(where: ProjectWhere, directed: Boolean = true): UserProjectProjectsAggregationSelection
+  projectsConnection(where: UserProjectsConnectionWhere, first: Int, after: String, directed: Boolean = true, sort: [UserProjectsConnectionSort!]): UserProjectsConnection!
+}
+
+type UserAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+  displayName: StringAggregateSelectionNonNullable!
+}
+
+input UserConnectInput {
+  projects: [UserProjectsConnectFieldInput!]
+}
+
+input UserConnectOrCreateInput {
+  projects: [UserProjectsConnectOrCreateFieldInput!]
+}
+
+input UserConnectOrCreateWhere {
+  node: UserUniqueWhere!
+}
+
+input UserConnectWhere {
+  node: UserWhere!
+}
+
+input UserCreateInput {
+  username: String!
+  displayName: String!
+  projects: UserProjectsFieldInput
+}
+
+input UserDeleteInput {
+  projects: [UserProjectsDeleteFieldInput!]
+}
+
+input UserDisconnectInput {
+  projects: [UserProjectsDisconnectFieldInput!]
+}
+
+type UserEdge {
+  cursor: String!
+  node: User!
+}
+
+input UserOnCreateInput {
+  username: String!
+  displayName: String!
+}
+
+input UserOptions {
+  """
+  Specify one or more UserSort objects to sort Users by. The sorts will be
+  applied in the order in which they are arranged in the array.
+  """
+  sort: [UserSort!]
+  limit: Int
+  offset: Int
+}
+
+type UserProjectProjectsAggregationSelection {
+  count: Int!
+  node: UserProjectProjectsNodeAggregateSelection
+}
+
+type UserProjectProjectsNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  title: StringAggregateSelectionNonNullable!
+  description: StringAggregateSelectionNullable!
+  creationDate: DateTimeAggregateSelectionNonNullable!
+  modifiedDate: DateTimeAggregateSelectionNonNullable!
+}
+
+input UserProjectsAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [UserProjectsAggregateInput!]
+  OR: [UserProjectsAggregateInput!]
+  node: UserProjectsNodeAggregationWhereInput
+}
+
+input UserProjectsConnectFieldInput {
+  where: ProjectConnectWhere
+  connect: [ProjectConnectInput!]
+}
+
+type UserProjectsConnection {
+  edges: [UserProjectsRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input UserProjectsConnectionSort {
+  node: ProjectSort
+}
+
+input UserProjectsConnectionWhere {
+  AND: [UserProjectsConnectionWhere!]
+  OR: [UserProjectsConnectionWhere!]
+  node: ProjectWhere
+  node_NOT: ProjectWhere
+}
+
+input UserProjectsConnectOrCreateFieldInput {
+  where: ProjectConnectOrCreateWhere!
+  onCreate: UserProjectsConnectOrCreateFieldInputOnCreate!
+}
+
+input UserProjectsConnectOrCreateFieldInputOnCreate {
+  node: ProjectOnCreateInput!
+}
+
+input UserProjectsCreateFieldInput {
+  node: ProjectCreateInput!
+}
+
+input UserProjectsDeleteFieldInput {
+  where: UserProjectsConnectionWhere
+  delete: ProjectDeleteInput
+}
+
+input UserProjectsDisconnectFieldInput {
+  where: UserProjectsConnectionWhere
+  disconnect: ProjectDisconnectInput
+}
+
+input UserProjectsFieldInput {
+  create: [UserProjectsCreateFieldInput!]
+  connect: [UserProjectsConnectFieldInput!]
+  connectOrCreate: [UserProjectsConnectOrCreateFieldInput!]
+}
+
+input UserProjectsNodeAggregationWhereInput {
+  AND: [UserProjectsNodeAggregationWhereInput!]
+  OR: [UserProjectsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  title_EQUAL: String
+  title_AVERAGE_EQUAL: Float
+  title_LONGEST_EQUAL: Int
+  title_SHORTEST_EQUAL: Int
+  title_GT: Int
+  title_AVERAGE_GT: Float
+  title_LONGEST_GT: Int
+  title_SHORTEST_GT: Int
+  title_GTE: Int
+  title_AVERAGE_GTE: Float
+  title_LONGEST_GTE: Int
+  title_SHORTEST_GTE: Int
+  title_LT: Int
+  title_AVERAGE_LT: Float
+  title_LONGEST_LT: Int
+  title_SHORTEST_LT: Int
+  title_LTE: Int
+  title_AVERAGE_LTE: Float
+  title_LONGEST_LTE: Int
+  title_SHORTEST_LTE: Int
+  description_EQUAL: String
+  description_AVERAGE_EQUAL: Float
+  description_LONGEST_EQUAL: Int
+  description_SHORTEST_EQUAL: Int
+  description_GT: Int
+  description_AVERAGE_GT: Float
+  description_LONGEST_GT: Int
+  description_SHORTEST_GT: Int
+  description_GTE: Int
+  description_AVERAGE_GTE: Float
+  description_LONGEST_GTE: Int
+  description_SHORTEST_GTE: Int
+  description_LT: Int
+  description_AVERAGE_LT: Float
+  description_LONGEST_LT: Int
+  description_SHORTEST_LT: Int
+  description_LTE: Int
+  description_AVERAGE_LTE: Float
+  description_LONGEST_LTE: Int
+  description_SHORTEST_LTE: Int
+  creationDate_EQUAL: DateTime
+  creationDate_MIN_EQUAL: DateTime
+  creationDate_MAX_EQUAL: DateTime
+  creationDate_GT: DateTime
+  creationDate_MIN_GT: DateTime
+  creationDate_MAX_GT: DateTime
+  creationDate_GTE: DateTime
+  creationDate_MIN_GTE: DateTime
+  creationDate_MAX_GTE: DateTime
+  creationDate_LT: DateTime
+  creationDate_MIN_LT: DateTime
+  creationDate_MAX_LT: DateTime
+  creationDate_LTE: DateTime
+  creationDate_MIN_LTE: DateTime
+  creationDate_MAX_LTE: DateTime
+  modifiedDate_EQUAL: DateTime
+  modifiedDate_MIN_EQUAL: DateTime
+  modifiedDate_MAX_EQUAL: DateTime
+  modifiedDate_GT: DateTime
+  modifiedDate_MIN_GT: DateTime
+  modifiedDate_MAX_GT: DateTime
+  modifiedDate_GTE: DateTime
+  modifiedDate_MIN_GTE: DateTime
+  modifiedDate_MAX_GTE: DateTime
+  modifiedDate_LT: DateTime
+  modifiedDate_MIN_LT: DateTime
+  modifiedDate_MAX_LT: DateTime
+  modifiedDate_LTE: DateTime
+  modifiedDate_MIN_LTE: DateTime
+  modifiedDate_MAX_LTE: DateTime
+}
+
+type UserProjectsRelationship {
+  cursor: String!
+  node: Project!
+}
+
+input UserProjectsUpdateConnectionInput {
+  node: ProjectUpdateInput
+}
+
+input UserProjectsUpdateFieldInput {
+  where: UserProjectsConnectionWhere
+  update: UserProjectsUpdateConnectionInput
+  connect: [UserProjectsConnectFieldInput!]
+  disconnect: [UserProjectsDisconnectFieldInput!]
+  create: [UserProjectsCreateFieldInput!]
+  delete: [UserProjectsDeleteFieldInput!]
+  connectOrCreate: [UserProjectsConnectOrCreateFieldInput!]
+}
+
+input UserRelationInput {
+  projects: [UserProjectsCreateFieldInput!]
+}
+
+type UsersConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+}
+
+"""
+Fields to sort Users by. The order in which sorts are applied is not guaranteed
+when specifying many fields in one UserSort object.
+"""
+input UserSort {
+  id: SortDirection
+  username: SortDirection
+  displayName: SortDirection
+}
+
+input UserUniqueWhere {
+  id: ID
+  username: String
+}
+
+input UserUpdateInput {
+  username: String
+  displayName: String
+  projects: [UserProjectsUpdateFieldInput!]
+}
+
+input UserWhere {
+  OR: [UserWhere!]
+  AND: [UserWhere!]
+  id: ID
+  id_NOT: ID
+  id_IN: [ID!]
+  id_NOT_IN: [ID!]
+  id_CONTAINS: ID
+  id_NOT_CONTAINS: ID
+  id_STARTS_WITH: ID
+  id_NOT_STARTS_WITH: ID
+  id_ENDS_WITH: ID
+  id_NOT_ENDS_WITH: ID
+  username: String
+  username_NOT: String
+  username_IN: [String!]
+  username_NOT_IN: [String!]
+  username_CONTAINS: String
+  username_NOT_CONTAINS: String
+  username_STARTS_WITH: String
+  username_NOT_STARTS_WITH: String
+  username_ENDS_WITH: String
+  username_NOT_ENDS_WITH: String
+  displayName: String
+  displayName_NOT: String
+  displayName_IN: [String!]
+  displayName_NOT_IN: [String!]
+  displayName_CONTAINS: String
+  displayName_NOT_CONTAINS: String
+  displayName_STARTS_WITH: String
+  displayName_NOT_STARTS_WITH: String
+  displayName_ENDS_WITH: String
+  displayName_NOT_ENDS_WITH: String
+  projectsAggregate: UserProjectsAggregateInput
+
+  """Return Users where all of the related Projects match this filter"""
+  projects_ALL: ProjectWhere
+
+  """Return Users where none of the related Projects match this filter"""
+  projects_NONE: ProjectWhere
+
+  """Return Users where one of the related Projects match this filter"""
+  projects_SINGLE: ProjectWhere
+
+  """Return Users where some of the related Projects match this filter"""
+  projects_SOME: ProjectWhere
+  projectsConnection_ALL: UserProjectsConnectionWhere
+  projectsConnection_NONE: UserProjectsConnectionWhere
+  projectsConnection_SINGLE: UserProjectsConnectionWhere
+  projectsConnection_SOME: UserProjectsConnectionWhere
+}
+

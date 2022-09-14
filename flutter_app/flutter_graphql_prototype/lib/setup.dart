@@ -1,5 +1,7 @@
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gql_http_link/gql_http_link.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_graphql_prototype/setup.config.dart';
 
@@ -22,4 +24,10 @@ T locateService<T extends Object>({
 abstract class RegisterModule {
   @Injectable(as: Key)
   UniqueKey get key;
+
+  @singleton
+  Client get graphQLClient => Client(
+        cache: Cache(),
+        link: HttpLink('http://localhost:4000/'),
+      );
 }
