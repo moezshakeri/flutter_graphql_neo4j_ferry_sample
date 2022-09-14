@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@neo4j/graphql": "^3.6.0",
+    "apollo-server": "^3.10.0",
+    "graphql": "^16.5.0",
+    "graphql-type-json": "^0.3.2",
+    "neo4j-driver": "^4.4.7"
+  },
+  "scripts": {
+    "start": "node pap.js",
+    "build": "node --check pap.js"
+  }
+}

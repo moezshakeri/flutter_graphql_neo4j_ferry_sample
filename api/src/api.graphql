@@ -1,0 +1,33 @@
+scalar JSON
+enum ModuleType {
+  Core
+  Peripheral
+}
+
+type User {
+  id: ID! @id
+  username: String! @unique
+  displayName: String!
+  projects: [Project!]! @relationship(type: "OWNS", direction: OUT)
+}
+
+type Project {
+  id: ID! @id
+  title: String!
+  description: String
+  creationDate: DateTime! @timestamp(operations: [CREATE])
+  modifiedDate: DateTime! @timestamp(operations: [CREATE, UPDATE])
+  pages: [Page!]! @relationship(type: "HAS_PAGE", direction: OUT)
+  owner: User! @relationship(type: "OWNS", direction: IN)
+}
+
+type Page {
+  id: ID! @id
+  title: String!
+  description: String
+  layout: String!
+  orderNumber: Int!
+  subPages: [Page!]! @relationship(type: "PARENT_OF", direction: OUT)
+  parentPage: Page @relationship(type: "PARENT_OF", direction: IN)
+  belongsTo: Project! @relationship(type: "HAS_PAGE", direction: IN)
+}
