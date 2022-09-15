@@ -18,56 +18,22 @@ class _$GAllUserVarsSerializer implements StructuredSerializer<GAllUserVars> {
   @override
   Iterable<Object?> serialize(Serializers serializers, GAllUserVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'limit',
-      serializers.serialize(object.limit, specifiedType: const FullType(int)),
-      'offset',
-      serializers.serialize(object.offset, specifiedType: const FullType(int)),
-    ];
-
-    return result;
+    return <Object?>[];
   }
 
   @override
   GAllUserVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAllUserVarsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'limit':
-          result.limit = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'offset':
-          result.offset = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-      }
-    }
-
-    return result.build();
+    return new GAllUserVarsBuilder().build();
   }
 }
 
 class _$GAllUserVars extends GAllUserVars {
-  @override
-  final int limit;
-  @override
-  final int offset;
-
   factory _$GAllUserVars([void Function(GAllUserVarsBuilder)? updates]) =>
       (new GAllUserVarsBuilder()..update(updates))._build();
 
-  _$GAllUserVars._({required this.limit, required this.offset}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(limit, r'GAllUserVars', 'limit');
-    BuiltValueNullFieldError.checkNotNull(offset, r'GAllUserVars', 'offset');
-  }
+  _$GAllUserVars._() : super._();
 
   @override
   GAllUserVars rebuild(void Function(GAllUserVarsBuilder) updates) =>
@@ -79,22 +45,17 @@ class _$GAllUserVars extends GAllUserVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GAllUserVars &&
-        limit == other.limit &&
-        offset == other.offset;
+    return other is GAllUserVars;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, limit.hashCode), offset.hashCode));
+    return 246284910;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GAllUserVars')
-          ..add('limit', limit)
-          ..add('offset', offset))
-        .toString();
+    return newBuiltValueToStringHelper(r'GAllUserVars').toString();
   }
 }
 
@@ -102,25 +63,7 @@ class GAllUserVarsBuilder
     implements Builder<GAllUserVars, GAllUserVarsBuilder> {
   _$GAllUserVars? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
-  int? _offset;
-  int? get offset => _$this._offset;
-  set offset(int? offset) => _$this._offset = offset;
-
   GAllUserVarsBuilder();
-
-  GAllUserVarsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _limit = $v.limit;
-      _offset = $v.offset;
-      _$v = null;
-    }
-    return this;
-  }
 
   @override
   void replace(GAllUserVars other) {
@@ -137,12 +80,7 @@ class GAllUserVarsBuilder
   GAllUserVars build() => _build();
 
   _$GAllUserVars _build() {
-    final _$result = _$v ??
-        new _$GAllUserVars._(
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GAllUserVars', 'limit'),
-            offset: BuiltValueNullFieldError.checkNotNull(
-                offset, r'GAllUserVars', 'offset'));
+    final _$result = _$v ?? new _$GAllUserVars._();
     replace(_$result);
     return _$result;
   }

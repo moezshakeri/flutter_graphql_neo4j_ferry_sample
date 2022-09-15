@@ -15,8 +15,6 @@ abstract class GAllUserVars
   factory GAllUserVars([Function(GAllUserVarsBuilder b) updates]) =
       _$GAllUserVars;
 
-  int get limit;
-  int get offset;
   static Serializer<GAllUserVars> get serializer => _$gAllUserVarsSerializer;
   Map<String, dynamic> toJson() =>
       (_i1.serializers.serializeWith(GAllUserVars.serializer, this)

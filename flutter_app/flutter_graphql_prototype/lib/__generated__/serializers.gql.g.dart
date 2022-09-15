@@ -113,6 +113,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUserConnectOrCreateWhere.serializer)
       ..add(GUserConnectWhere.serializer)
       ..add(GUserCreateInput.serializer)
+      ..add(GUserData.serializer)
+      ..add(GUserData_users.serializer)
       ..add(GUserDeleteInput.serializer)
       ..add(GUserDisconnectInput.serializer)
       ..add(GUserInfoData.serializer)
@@ -138,9 +140,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUserProjectsUpdateFieldInput.serializer)
       ..add(GUserProjectsVars.serializer)
       ..add(GUserRelationInput.serializer)
+      ..add(GUserReq.serializer)
       ..add(GUserSort.serializer)
       ..add(GUserUniqueWhere.serializer)
       ..add(GUserUpdateInput.serializer)
+      ..add(GUserVars.serializer)
       ..add(GUserWhere.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GAllUserData_users)]),
@@ -469,6 +473,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GDateTime)]),
           () => new ListBuilder<GDateTime>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(GUserData_users)]),
+          () => new ListBuilder<GUserData_users>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GUserProjectsAggregateInput)]),

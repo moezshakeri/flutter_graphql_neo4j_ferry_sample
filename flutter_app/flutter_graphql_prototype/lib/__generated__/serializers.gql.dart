@@ -134,6 +134,12 @@ import 'package:flutter_graphql_prototype/graphql/__generated__/all_user.req.gql
     show GAllUserReq;
 import 'package:flutter_graphql_prototype/graphql/__generated__/all_user.var.gql.dart'
     show GAllUserVars;
+import 'package:flutter_graphql_prototype/graphql/__generated__/user.data.gql.dart'
+    show GUserData, GUserData_users;
+import 'package:flutter_graphql_prototype/graphql/__generated__/user.req.gql.dart'
+    show GUserReq;
+import 'package:flutter_graphql_prototype/graphql/__generated__/user.var.gql.dart'
+    show GUserVars;
 import 'package:flutter_graphql_prototype/graphql/__generated__/user_fragment.data.gql.dart'
     show GUserInfoData, GUserProjectsData, GUserProjectsData_projects;
 import 'package:flutter_graphql_prototype/graphql/__generated__/user_fragment.req.gql.dart'
@@ -254,6 +260,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserConnectOrCreateWhere,
   GUserConnectWhere,
   GUserCreateInput,
+  GUserData,
+  GUserData_users,
   GUserDeleteInput,
   GUserDisconnectInput,
   GUserInfoData,
@@ -279,9 +287,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserProjectsUpdateFieldInput,
   GUserProjectsVars,
   GUserRelationInput,
+  GUserReq,
   GUserSort,
   GUserUniqueWhere,
   GUserUpdateInput,
+  GUserVars,
   GUserWhere
 ])
 final Serializers serializers = _serializersBuilder.build();
