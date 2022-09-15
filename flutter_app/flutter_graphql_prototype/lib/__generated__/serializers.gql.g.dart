@@ -13,6 +13,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GAllUserData_users_projects.serializer)
       ..add(GAllUserReq.serializer)
       ..add(GAllUserVars.serializer)
+      ..add(GCreateUserData.serializer)
+      ..add(GCreateUserData_createUsers.serializer)
+      ..add(GCreateUserData_createUsers_users.serializer)
+      ..add(GCreateUserReq.serializer)
+      ..add(GCreateUserVars.serializer)
       ..add(GDateTime.serializer)
       ..add(GPageBelongsToAggregateInput.serializer)
       ..add(GPageBelongsToConnectFieldInput.serializer)
@@ -153,6 +158,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GAllUserData_users_projects)]),
           () => new ListBuilder<GAllUserData_users_projects>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GCreateUserData_createUsers_users)]),
+          () => new ListBuilder<GCreateUserData_createUsers_users>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GPageBelongsToAggregateInput)]),
@@ -473,6 +482,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GDateTime)]),
           () => new ListBuilder<GDateTime>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(GUserCreateInput)]),
+          () => new ListBuilder<GUserCreateInput>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GUserData_users)]),
           () => new ListBuilder<GUserData_users>())

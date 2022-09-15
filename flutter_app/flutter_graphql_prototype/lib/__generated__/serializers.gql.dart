@@ -134,6 +134,15 @@ import 'package:flutter_graphql_prototype/graphql/__generated__/all_user.req.gql
     show GAllUserReq;
 import 'package:flutter_graphql_prototype/graphql/__generated__/all_user.var.gql.dart'
     show GAllUserVars;
+import 'package:flutter_graphql_prototype/graphql/__generated__/create_user.data.gql.dart'
+    show
+        GCreateUserData,
+        GCreateUserData_createUsers,
+        GCreateUserData_createUsers_users;
+import 'package:flutter_graphql_prototype/graphql/__generated__/create_user.req.gql.dart'
+    show GCreateUserReq;
+import 'package:flutter_graphql_prototype/graphql/__generated__/create_user.var.gql.dart'
+    show GCreateUserVars;
 import 'package:flutter_graphql_prototype/graphql/__generated__/user.data.gql.dart'
     show GUserData, GUserData_users;
 import 'package:flutter_graphql_prototype/graphql/__generated__/user.req.gql.dart'
@@ -160,6 +169,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAllUserData_users_projects,
   GAllUserReq,
   GAllUserVars,
+  GCreateUserData,
+  GCreateUserData_createUsers,
+  GCreateUserData_createUsers_users,
+  GCreateUserReq,
+  GCreateUserVars,
   GDateTime,
   GPageBelongsToAggregateInput,
   GPageBelongsToConnectFieldInput,
